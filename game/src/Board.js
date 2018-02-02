@@ -23,6 +23,13 @@ class Board extends Component {
     return rows.map(row => <BigSquare numbers={row} />)
   }
 
+  changeSquare(row, position, value) {
+    let newBoard = [...this.state.board];
+    newBoard[row][position] = value;
+
+    this.setState({ board: newBoard });
+  }
+
   render() {
     return (
       <div className="boardContainer">
