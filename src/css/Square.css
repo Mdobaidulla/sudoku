@@ -1,4 +1,5 @@
 .flexItem {
+  background-color: #fff;
   border: 1px solid #000;
   flex: 1 0 0;
   font-family: "Roboto";
@@ -17,7 +18,7 @@
 }
 
 .hover {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 
@@ -26,5 +27,5 @@
 }
 
 .initial {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
