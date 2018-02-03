@@ -1,6 +1,10 @@
 # Sudoku
 ## Josh Seides
 
+### Installation Instructions
+1. `npm install`
+1. `npm start` (a browser should automatically open with the React app)
+
 ### Overview
 This app is made using the React framework. The base technologies used include JavaScript, HTML, and CSS.
 
