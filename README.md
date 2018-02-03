@@ -2,7 +2,7 @@
 ## Josh Seides
 
 ### Overview
-This app is made using the React framework. Other technologies used include JavaScript, HTML, and CSS.
+This app is made using the React framework. The base technologies used include JavaScript, HTML, and CSS.
 
 ### Structure
 The app is modularized using React's component architecture. There are four levels of components:
