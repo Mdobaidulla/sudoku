@@ -6,6 +6,7 @@ class Square extends Component {
     super(props);
 
     this.state = {
+      initial: this.props.number !== 0,
       hover: false
     }
 
@@ -18,8 +19,12 @@ class Square extends Component {
 
   render() {
     return(
-      <div className={"flexItem" + (this.state.hover ? " hover" : "") + (this.props.number ? "" : " open")}
-           onClick={this.props.change.bind(this, this.props.rowIndex, this.props.positionIndex)}
+      <div className={"flexItem" + (this.state.hover && !this.state.initial ? " hover" : "") +
+                      (this.props.number ? "" : " open") +
+                      (this.props.rowIndex === 3 || this.props.rowIndex === 6 ? " borderTopSquare" : "") +
+                      (this.props.positionIndex === 2 || this.props.positionIndex === 5 ? " borderRightSquare" : "") +
+                      (this.state.initial ? " initial" : "")}
+           onClick={this.state.initial ? null : this.props.change.bind(this, this.props.rowIndex, this.props.positionIndex)}
            onMouseEnter={this.changeHover.bind(this, true)}
            onMouseLeave={this.changeHover.bind(this, false)}>
         {this.props.number}

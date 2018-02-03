@@ -1,36 +1,105 @@
 import React, { Component } from 'react';
 import './Board.css';
 
-import BigSquare from './BigSquare';
+import Row from './Row';
+
+import { solveSudoku } from './sudokuSolver';
+import sudoku from './sudoku';
 
 class Board extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      board: [[0, 3, 5, 3, 4, 5, 6, 7, 8],
-              [1, 0, 0, 0, 0, 0, 0, 3, 0],
-              [2, 0, 0, 0, 0, 0, 2, 0, 0],
-              [3, 0, 0, 0, 0, 0, 0, 0, 0],
-              [4, 0, 1, 0, 2, 0, 0, 0, 0],
-              [5, 0, 0, 0, 0, 0, 0, 0, 0],
-              [6, 0, 0, 0, 0, 0, 4, 0, 0],
-              [7, 0, 0, 0, 0, 0, 7, 0, 0],
-              [8, 0, 0, 0, 0, 0, 0, 8, 0]],
+      board: [[0, 5, 2, 4, 8, 9, 3, 7, 6],
+              [7, 3, 9, 2, 5, 6, 8, 4, 1],
+              [4, 6, 8, 3, 7, 1, 2, 9, 5],
+              [3, 8, 7, 1, 2, 4, 6, 5, 9],
+              [5, 9, 1, 7, 0, 3, 4, 2, 8],
+              [2, 4, 6, 8, 9, 5, 7, 1, 3],
+              [9, 1, 4, 6, 3, 7, 5, 8, 2],
+              [6, 2, 5, 9, 4, 8, 1, 3, 7],
+              [8, 7, 3, 5, 1, 2, 9, 6, 4]],
       number: null,
       position: null,
       row: null,
-      showModal: false
+      showModal: false,
+      showSolution: false,
+      solution: null
     }
 
+    this.checkBoard = this.checkBoard.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.generateBoard = this.generateBoard.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.showModal = this.showModal.bind(this);
+    this.solveBoard = this.solveBoard.bind(this);
   }
 
-  generateBigSquare(rows, rowIndex) {
-    return rows.map((row, i) => <BigSquare numbers={row} change={this.showModal} rowIndex={3 * rowIndex + i} />)
+  componentDidMount() {
+    console.log(sudoku.generate("insane"))
+  }
+
+  generateBoard() {
+    boards[Math.floor(Math.random() * boards.length)]
+  }
+
+  verifyConstraint(numbers) {
+    return ((new Set(numbers)).size === numbers.length) && numbers.reduce((a, b) => a + b, 0) === 45;
+  }
+
+  solveBoard() {
+    this.setState({ showSolution: true })
+  }
+
+  checkBoard() {
+    let numbers = [];
+
+    // rows
+    for (var i = 0; i < 9; i++) {
+      if (!this.verifyConstraint(this.state.board[i])) {
+        alert('Oh no! There is an error in row ' + (i + 1) + '.');
+        return false;
+      }
+    }
+
+    // columns
+    for (var col = 0; col < 9; col++) {
+      numbers = [];
+
+      for (var row = 0; row < 9; row++) {
+        numbers.push(this.state.board[row][col]);
+      }
+
+      if (!this.verifyConstraint(numbers)) {
+        alert('Oh no! There is an error in column ' + (col + 1) + '.');
+        return false;
+      }
+    }
+
+    // squares
+    let squares = [[], [], [], [], [], [], [], [], []];
+
+    for (var i = 0; i < 9; i++) {
+      for (var j = 0; j < 9; j++) {
+        squares[(3 * Math.floor(i / 3)) + Math.floor(j / 3)].push(this.state.board[i][j]);
+      }
+    }
+
+    for (var i = 0; i < 9; i++) {
+      if (!this.verifyConstraint(squares[i])) {
+        alert('Oh no! There is an error in square ' + (i + 1) + '.');
+        return false;
+      }
+    }
+
+    alert('YESSS!')
+    return true;
+  }
+
+  generateRow(row) {
+    return <Row numbers={this.state.showSolution ? this.state.solution[row] : this.state.board[row]} change={this.showModal} rowIndex={row} />;
   }
 
   showModal(row, position) {
@@ -67,12 +136,28 @@ class Board extends Component {
           </form>
         </div>}
         <div className="boardContainer">
-          {this.generateBigSquare(this.state.board.slice(0, 3), 0)}
+          {this.generateRow(0)}
           <br/>
-          {this.generateBigSquare(this.state.board.slice(3, 6), 1)}
+          {this.generateRow(1)}
           <br/>
-          {this.generateBigSquare(this.state.board.slice(6, 9), 2)}
+          {this.generateRow(2)}
+          <br/>
+          {this.generateRow(3)}
+          <br/>
+          {this.generateRow(4)}
+          <br/>
+          {this.generateRow(5)}
+          <br/>
+          {this.generateRow(6)}
+          <br/>
+          {this.generateRow(7)}
+          <br/>
+          {this.generateRow(8)}
+          <br/>
         </div>
+        <div className="button" onClick={this.checkBoard}>Check</div>
+        <div className="button" onClick={this.solveBoard}>Solve</div>
+        <div className="button" onClick={this.generateBoard}>Generate</div>
       </div>
     );
   }

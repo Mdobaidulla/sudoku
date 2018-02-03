@@ -2,7 +2,15 @@
   border: 1px solid #000;
   flex: 1 0 0;
   height: auto;
-  padding: 10% 0;
+  padding: calc(10% / 3) 0;
+}
+
+.borderTopSquare {
+  border-top: 4px solid #000;
+}
+
+.borderRightSquare {
+  border-right: 4px solid #000;
 }
 
 .hover {
@@ -12,4 +20,8 @@
 
 .open {
   color: rgba(0, 0, 0, 0);
+}
+
+.initial {
+  background-color: rgba(0, 0, 0, 0.3);
 }

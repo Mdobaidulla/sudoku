@@ -1,8 +1,7 @@
-.bigSquareContainer {
-  border: 2px solid #000;
+.rowContainer {
   display: inline-block;
   flex-flow: row;
-  width: calc((100% / 3) - 4px);
+  width: 100%;
 }
 
 .flexContainer {
