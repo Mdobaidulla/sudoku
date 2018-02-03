@@ -43,4 +43,4 @@ React is used for its performant manipulation of the DOM and modularization arch
 A high importance is placed on flexible styling. The squares are styled with CSS flexbox to allow for responsive web design that adjusts to various screen sizes.
 
 ### Note about Generator and Solver
-The algorithm for generation and solving comes from the [sudoku.js](https://github.com/robatron/sudoku.js?MobileOptOut=1) library. It uses the backtracking algorithm to solve game boards. All other code, including the checker algorithm, is completely self-written.
+The algorithm for generation and solving comes from the <a href="https://github.com/robatron/sudoku.js?MobileOptOut=1" target="_blank">sudoku.js</a> library. It uses the backtracking algorithm to solve game boards. All other code, including the checker algorithm, is completely self-written.
