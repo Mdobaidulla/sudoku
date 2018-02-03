@@ -9,7 +9,7 @@ class Row extends Component {
   }
 
   generateSquares(numbers) {
-    return numbers.map((number, i) => <Square number={number} change={this.props.change} rowIndex={this.props.rowIndex} positionIndex={i} />)
+    return numbers.map((number, i) => <Square initial={this.props.positions[i] !== 0} number={number} change={this.props.change} rowIndex={this.props.rowIndex} positionIndex={i} />)
   }
 
   render() {

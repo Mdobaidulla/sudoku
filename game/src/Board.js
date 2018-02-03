@@ -3,7 +3,6 @@ import './Board.css';
 
 import Row from './Row';
 
-import { solveSudoku } from './sudokuSolver';
 import sudoku from './sudoku';
 
 class Board extends Component {
@@ -42,7 +41,7 @@ class Board extends Component {
       newBoard.push(board.substring(i * 9, (i + 1) * 9).split('').map(s => parseInt(s)));
     }
 
-    this.setState({ board: newBoard, initial: rawBoard });
+    this.setState({ board: [...newBoard], initial: rawBoard });
   }
 
   solveBoard() {
@@ -106,8 +105,8 @@ class Board extends Component {
     return true;
   }
 
-  generateRow(row) {
-    return <Row numbers={this.state.board[row]} change={this.showModal} rowIndex={row} />;
+  generateRow(row, givens) {
+    return <Row positions={givens[row]} numbers={this.state.board[row]} change={this.showModal} rowIndex={row} />;
   }
 
   showModal(row, position) {
@@ -133,6 +132,14 @@ class Board extends Component {
   }
 
   render() {
+    let board = this.state.initial.replace(/\./g, '0');
+
+    let newBoard = [];
+
+    for (var i = 0; i < 9; i++) {
+      newBoard.push(board.substring(i * 9, (i + 1) * 9).split('').map(s => parseInt(s)));
+    }
+
     return (
       <div className="body">
         {this.state.showModal && <div className="modal">
@@ -144,23 +151,23 @@ class Board extends Component {
           </form>
         </div>}
         <div className="boardContainer">
-          {this.generateRow(0)}
+          {this.generateRow(0, newBoard)}
           <br/>
-          {this.generateRow(1)}
+          {this.generateRow(1, newBoard)}
           <br/>
-          {this.generateRow(2)}
+          {this.generateRow(2, newBoard)}
           <br/>
-          {this.generateRow(3)}
+          {this.generateRow(3, newBoard)}
           <br/>
-          {this.generateRow(4)}
+          {this.generateRow(4, newBoard)}
           <br/>
-          {this.generateRow(5)}
+          {this.generateRow(5, newBoard)}
           <br/>
-          {this.generateRow(6)}
+          {this.generateRow(6, newBoard)}
           <br/>
-          {this.generateRow(7)}
+          {this.generateRow(7, newBoard)}
           <br/>
-          {this.generateRow(8)}
+          {this.generateRow(8, newBoard)}
           <br/>
         </div>
         <div className="button" onClick={this.checkBoard}>Check</div>
