@@ -11,21 +11,12 @@ class Board extends Component {
     super(props);
 
     this.state = {
-      board: [[0, 5, 2, 4, 8, 9, 3, 7, 6],
-              [7, 3, 9, 2, 5, 6, 8, 4, 1],
-              [4, 6, 8, 3, 7, 1, 2, 9, 5],
-              [3, 8, 7, 1, 2, 4, 6, 5, 9],
-              [5, 9, 1, 7, 0, 3, 4, 2, 8],
-              [2, 4, 6, 8, 9, 5, 7, 1, 3],
-              [9, 1, 4, 6, 3, 7, 5, 8, 2],
-              [6, 2, 5, 9, 4, 8, 1, 3, 7],
-              [8, 7, 3, 5, 1, 2, 9, 6, 4]],
+      board: null,
+      initial: null,
       number: null,
       position: null,
       row: null,
       showModal: false,
-      showSolution: false,
-      solution: null
     }
 
     this.checkBoard = this.checkBoard.bind(this);
@@ -37,20 +28,37 @@ class Board extends Component {
     this.solveBoard = this.solveBoard.bind(this);
   }
 
-  componentDidMount() {
-    console.log(sudoku.generate("insane"))
+  componentWillMount() {
+    this.generateBoard();
   }
 
   generateBoard() {
-    boards[Math.floor(Math.random() * boards.length)]
+    let rawBoard = sudoku.generate('medium');
+    let board = rawBoard.replace(/\./g, '0');
+
+    let newBoard = [];
+
+    for (var i = 0; i < 9; i++) {
+      newBoard.push(board.substring(i * 9, (i + 1) * 9).split('').map(s => parseInt(s)));
+    }
+
+    this.setState({ board: newBoard, initial: rawBoard });
+  }
+
+  solveBoard() {
+    let rawSolution = sudoku.solve(this.state.initial);
+    let solution = rawSolution.replace(/\./g, '0');
+    let newSolution = [];
+
+    for (var i = 0; i < 9; i++) {
+      newSolution.push(solution.substring(i * 9, (i + 1) * 9).split('').map(s => parseInt(s)));
+    }
+
+    this.setState({ board: newSolution });
   }
 
   verifyConstraint(numbers) {
     return ((new Set(numbers)).size === numbers.length) && numbers.reduce((a, b) => a + b, 0) === 45;
-  }
-
-  solveBoard() {
-    this.setState({ showSolution: true })
   }
 
   checkBoard() {
@@ -99,7 +107,7 @@ class Board extends Component {
   }
 
   generateRow(row) {
-    return <Row numbers={this.state.showSolution ? this.state.solution[row] : this.state.board[row]} change={this.showModal} rowIndex={row} />;
+    return <Row numbers={this.state.board[row]} change={this.showModal} rowIndex={row} />;
   }
 
   showModal(row, position) {
