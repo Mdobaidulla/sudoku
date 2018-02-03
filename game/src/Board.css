@@ -1,4 +1,19 @@
+body {
+  background-color: #fff3a5;
+}
+
+.modal {
+  background-color: #fff;
+  min-height: 340px;
+  margin-top: 100px;
+  padding: 50px;
+  position: fixed;
+  width: calc(100% - 100px);
+  z-index: 999;
+}
+
 .boardContainer {
   border: 2px solid #000;
   display: inline-block;
+  width: 40%;
 }

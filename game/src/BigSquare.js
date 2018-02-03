@@ -8,18 +8,22 @@ class BigSquare extends Component {
     super(props);
   }
 
-  generateSquare(numbers) {
-    return numbers.map(number => <Square number={number} />)
+  generateSquares(numbers, positionIndex) {
+    return numbers.map((number, i) => <Square number={number} change={this.props.change} rowIndex={this.props.rowIndex} positionIndex={3 * positionIndex + i} />)
   }
 
   render() {
     return(
       <div className="bigSquareContainer">
-        {this.generateSquare(this.props.numbers.slice(0, 3))}
-        <br/>
-        {this.generateSquare(this.props.numbers.slice(3, 6))}
-        <br/>
-        {this.generateSquare(this.props.numbers.slice(6, 9))}
+        <div className="flexContainer">
+          {this.generateSquares(this.props.numbers.slice(0, 3), 0)}
+        </div>
+        <div className="flexContainer">
+          {this.generateSquares(this.props.numbers.slice(3, 6), 1)}
+        </div>
+        <div className="flexContainer">
+          {this.generateSquares(this.props.numbers.slice(6, 9), 2)}
+        </div>
       </div>
     )
   }
