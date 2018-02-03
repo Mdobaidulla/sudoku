@@ -1,0 +1,51 @@
+.button {
+  background-color: #d80f0f;
+  border: 1px solid #d80f0f;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-block;
+  font-family: "Roboto";
+  float: right;
+  margin-right: 25px;
+  padding: 5px 10px;
+  position: relative;
+  top: calc((100% - 31px) / 2);
+  -webkit-transition: all 1.0s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.formButton {
+  float: none;
+}
+
+.generate {
+  border-radius: 50%;
+}
+
+.submit {
+  background-color: #03ad41;
+  border: 1px solid #03ad41;
+}
+
+.cancel {
+  margin: 0;
+}
+
+.buttonHover {
+  background-color: #a30606;
+  border: 1px solid #a30606;
+  cursor: pointer;
+  -webkit-transition: all 1.0s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.submitHover {
+  background-color: #02752c;
+  border: 1px solid #02752c;
+}

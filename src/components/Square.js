@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Square.css';
+import '../css/Square.css';
 
 class Square extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Square extends Component {
   }
 
   changeHover(hover) {
-    this.setState({ hover })
+    this.setState({ hover });
   }
 
   render() {
